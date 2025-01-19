@@ -20,7 +20,9 @@ struct LandingView: View {
                     ), sessionManager: SessionManager())
                     .environmentObject(sessionManager)
                 } else if sessionManager.isAuthenticated {
-                    HomeView(sessionManager: sessionManager)
+                    HomeView(sessionManager: sessionManager, viewModel: AuthViewModel(
+                        signUpUseCase: SignUpUseCase(repository: AuthRepository()),
+                        loginUseCase: LoginUseCase(repository: AuthRepository())))
                         .transition(.opacity)
                         .animation(.easeInOut, value: sessionManager.isAuthenticated)
                 } else {
